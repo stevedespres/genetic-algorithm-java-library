@@ -2,42 +2,55 @@ package api;
 
 import java.util.function.Function;
 
+import Individual.IndividualBuilder;
+import Individual.Population;
+import functions.CrossOverFunction;
+import functions.EvaluationFunction;
+import functions.MutationFunction;
 import results.Result;
 
 public class GeneticAPI implements IGeneticApi {
+	
 
+	private IndividualBuilder individualBuilderFunction;
+	private EvaluationFunction evaluationFunction;
+	private MutationFunction mutationFunction;
+	private CrossOverFunction crossoverFunction;
+	
+	private Population population;
+	
 	@Override
-	public <T, R> void setIndividualsBuilder(Function<T, R> function) {
-		// TODO Auto-generated method stub
+	public void setIndividualsBuilder(IndividualBuilder function) {
+		this.individualBuilderFunction=function;
 		
 	}
 
 	@Override
-	public <T, R> void setEvaluationFunction(Function<T, R> function) {
-		// TODO Auto-generated method stub
+	public void setEvaluationFunction(EvaluationFunction function) {
+		this.evaluationFunction=function;
 		
 	}
 
 	@Override
-	public <T, R> void setMutationFunction(Function<T, R> function) {
-		// TODO Auto-generated method stub
+	public void setMutationFunction(MutationFunction function) {
+		this.mutationFunction=function;
 		
 	}
 
 	@Override
-	public <T, R> void setCrossOverFunction(Function<T, R> function) {
-		// TODO Auto-generated method stub
+	public void setCrossOverFunction(CrossOverFunction function) {
+		this.crossoverFunction=function;
 		
 	}
 
 	@Override
-	public <T, R> void setPopulation(int size, float percentageOfChildsGenerated) {
-		// TODO Auto-generated method stub
+	public void setPopulation(int size, float percentageOfChildsGenerated) {
+		
 		
 	}
 
 	@Override
-	public <T, R> void setModes() {
+	public void setModes() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -59,5 +72,6 @@ public class GeneticAPI implements IGeneticApi {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 
 }
