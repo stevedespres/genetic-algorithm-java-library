@@ -1,4 +1,4 @@
-package Exec;
+package exec;
 
 public class Main {
 
