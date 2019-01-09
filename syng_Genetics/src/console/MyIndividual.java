@@ -2,7 +2,7 @@ package console;
 
 import Individual.Individual;
 
-public class MyIndividual implements Individual{
+public class MyIndividual extends Individual{
 
 	static final int geneLength = 64; // Taille du gene
 	private final byte[] genes = new byte[geneLength]; // Creation des genes sous forme de tableau d'octets
@@ -41,6 +41,15 @@ public class MyIndividual implements Individual{
     
     public void setGene(int index, byte value) {
         genes[index] = value;
+        skill = 0;
     }
- 
+
+    public void setSkill(int s) {
+    	skill = s;
+    }
+    
+    public int getSkill() {
+    	return skill;
+    }
+
 }

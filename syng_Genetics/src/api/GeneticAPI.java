@@ -1,15 +1,12 @@
 package api;
 
-import java.util.function.Function;
-
 import Individual.Individual;
 import Individual.Population;
 import functions.CrossOverFunction;
 import functions.EvaluationFunction;
 import functions.MutationFunction;
 import results.Result;
-import testQL.Algorithm;
-import testQL.Skill;
+import Individual.Skill;
 
 public class GeneticAPI implements IGeneticApi {
 	
@@ -20,6 +17,8 @@ public class GeneticAPI implements IGeneticApi {
 	private EvaluationFunction evaluationFunction;
 	private MutationFunction mutationFunction;
 	private CrossOverFunction crossoverFunction;
+	
+	private Skill skill;
 		
 	@Override
 	public void setIndividualImplementation(Individual builder) {
@@ -56,6 +55,11 @@ public class GeneticAPI implements IGeneticApi {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void setSkill(Skill skill) {
+		this.skill = skill;
+	}
 
 	/**
 	 * Initialisation de l'algorithme genetique avec les paramètres renseignes
@@ -71,57 +75,59 @@ public class GeneticAPI implements IGeneticApi {
 	public void run() {
 		
 		int generationCount = 0;
-		 while (population.getMoreCompetent().getSkill() <  ((byte[]) (evaluationFunction.execute(null))).length ) {
+		int skillMoreCompetent = 0;
+		
+		do {
+			
+			skillMoreCompetent = skill.getSkill(population.getMoreCompetent());
+			population.getMoreCompetent().setSkill(skillMoreCompetent);
+		
+	
+			
+			
 	            generationCount++;
 	            generationCount++;
 	            System.out.println("Generation: " + generationCount + " competence: " + population.getMoreCompetent().getSkill());
-	            population = evolvePopulation();
-		 }
+	            evolvePopulation();
 		
+		 }while(skillMoreCompetent < skill.getMaxSkill() );
+		
+		   System.out.println("Solution found!");
+	        System.out.println("Generation: " + generationCount);
+	        System.out.println("Genes:");
+	        System.out.println(population.getMoreCompetent());
 	}
 	
 	/**
 	 * Algorithme génétique
 	 * @return
 	 */
-	private Population evolvePopulation() {
+	private void evolvePopulation() {
 	
-		Population newPopulation = new Population(population.size());
+		Population newPopulation = new Population(population.getSize());
 	
-		// crossover
-        for (int i = elitismOffset; i < pop.size(); i++) {
-            Individual indiv1 = tournamentSelection(pop);
-            Individual indiv2 = tournamentSelection(pop);
-            Individual newIndiv = crossover(indiv1, indiv2);
+		// Croisement
+        for (int i = 0; i < population.getSize(); i++) {
+            Individual indiv1 = (Individual) evaluationFunction.execute(population);
+            Individual indiv2 = (Individual) evaluationFunction.execute(population);
+            
+            Individual[] tab = {indiv1, indiv2};
+            Individual newIndiv = (Individual) crossoverFunction.execute(tab);
             newPopulation.saveIndividual(i, newIndiv);
         }
  
-        // Mutate population
-        for (int i = 0; i < newPopulation.size(); i++) {
+        // Mutation
+        for (int i = 0; i < newPopulation.getSize(); i++) {
         	
-            mutate(newPopulation.getIndividual(i));
+            mutationFunction.execute(newPopulation.getIndividual(i));
         }
 	
 		population = newPopulation;
 		
+		
+		
 	}
 	
-	// = FONCTION DEVAL
-	// Select individuals for crossover
-    private static Individual tournamentSelection(Population pop) {
-    	int tournamentSize = 5;
-        // Create a tournament population
-        Population tournament = new Population(tournamentSize);
-        // For each place in the tournament get a random individual
-        for (int i = 0; i < tournamentSize; i++) {
-            int randomId = (int) (Math.random() * pop.size());
-            tournament.saveIndividual(i, pop.getIndividual(randomId));
-        }
-        // Get the fittest
-        Individual fittest = tournament.getMoreCompetent();
-        return fittest;
-    }
-
 	@Override
 	public Result getResult() {
 		// TODO Auto-generated method stub

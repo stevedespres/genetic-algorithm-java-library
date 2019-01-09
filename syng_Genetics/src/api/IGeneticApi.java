@@ -1,6 +1,7 @@
 package api;
 
 import Individual.Individual;
+import Individual.Skill;
 import functions.CrossOverFunction;
 import functions.EvaluationFunction;
 import functions.MutationFunction;
@@ -39,6 +40,8 @@ public interface IGeneticApi {
 	 * @param percentageOfChildsGenerated Pourcentage d'individus générés à chaque cycle
 	 */
 	public void setPopulation(int size);
+	
+	public void setSkill(Skill skill);
 	
 	/**
 	 * Définir les modes : stope, selection, nouveau individus
