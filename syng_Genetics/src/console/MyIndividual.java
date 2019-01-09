@@ -34,22 +34,13 @@ public class MyIndividual implements Individual{
     public int getGeneLength() {
     	return geneLength;
     }
+    /* Public methods */
+    public int size() {
+        return genes.length;
+    }
     
     public void setGene(int index, byte value) {
         genes[index] = value;
-    }
-    
-    public Integer getSkill() {
-        if (skill == 0) {
-             // Loop through our individuals genes and compare them to our candidates
-             for (int i = 0; i < geneLength && i < geneLength; i++) {
- 
-                 if (getGene(i) == solution[i]) {
-                	 skill++;
-                 }
-             }
-        }
-        return skill;
     }
  
 }

@@ -6,8 +6,8 @@ public interface Individual {
 	public abstract Individual create();
 	/* Fonction pour recupérer le gene de l'individu */
 	public abstract Object getGene();
-	/* Recupérer la competence de l'individu */
-	public abstract Integer getSkill();
+	public byte getGene(int index);
+	public int size();
 	
 
 }

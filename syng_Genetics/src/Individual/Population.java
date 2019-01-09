@@ -38,7 +38,10 @@ public class Population {
     	return individuals;
     }
     
-    public int size() {
+    /**
+     * @return population size
+     */
+    public int getSize() {
         return size;
     }
 
