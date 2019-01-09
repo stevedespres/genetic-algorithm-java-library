@@ -2,26 +2,28 @@ package api;
 
 import java.util.function.Function;
 
-import Individual.IndividualBuilder;
+import Individual.Individual;
 import Individual.Population;
 import functions.CrossOverFunction;
 import functions.EvaluationFunction;
 import functions.MutationFunction;
 import results.Result;
+import testQL.Algorithm;
+import testQL.Skill;
 
 public class GeneticAPI implements IGeneticApi {
 	
 
-	private IndividualBuilder individualBuilderFunction;
+	private Individual individualBuilder;
+	private Population population;
+	
 	private EvaluationFunction evaluationFunction;
 	private MutationFunction mutationFunction;
 	private CrossOverFunction crossoverFunction;
-	
-	private Population population;
-	
+		
 	@Override
-	public void setIndividualsBuilder(IndividualBuilder function) {
-		this.individualBuilderFunction=function;
+	public void setIndividualImplementation(Individual builder) {
+		this.individualBuilder=builder;
 		
 	}
 
@@ -44,9 +46,9 @@ public class GeneticAPI implements IGeneticApi {
 	}
 
 	@Override
-	public void setPopulation(int size, float percentageOfChildsGenerated) {
+	public void setPopulation(int size) {
 		
-		
+		population = new Population(size);
 	}
 
 	@Override
@@ -55,17 +57,70 @@ public class GeneticAPI implements IGeneticApi {
 		
 	}
 
+	/**
+	 * Initialisation de l'algorithme genetique avec les paramètres renseignes
+	 */
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+		// Initialisation de la population
+		population.init(individualBuilder);
 		
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		
+		int generationCount = 0;
+		 while (population.getMoreCompetent().getSkill() <  ((byte[]) (evaluationFunction.execute(null))).length ) {
+	            generationCount++;
+	            generationCount++;
+	            System.out.println("Generation: " + generationCount + " competence: " + population.getMoreCompetent().getSkill());
+	            population = evolvePopulation();
+		 }
 		
 	}
+	
+	/**
+	 * Algorithme génétique
+	 * @return
+	 */
+	private Population evolvePopulation() {
+	
+		Population newPopulation = new Population(population.size());
+	
+		// crossover
+        for (int i = elitismOffset; i < pop.size(); i++) {
+            Individual indiv1 = tournamentSelection(pop);
+            Individual indiv2 = tournamentSelection(pop);
+            Individual newIndiv = crossover(indiv1, indiv2);
+            newPopulation.saveIndividual(i, newIndiv);
+        }
+ 
+        // Mutate population
+        for (int i = 0; i < newPopulation.size(); i++) {
+        	
+            mutate(newPopulation.getIndividual(i));
+        }
+	
+		population = newPopulation;
+		
+	}
+	
+	// = FONCTION DEVAL
+	// Select individuals for crossover
+    private static Individual tournamentSelection(Population pop) {
+    	int tournamentSize = 5;
+        // Create a tournament population
+        Population tournament = new Population(tournamentSize);
+        // For each place in the tournament get a random individual
+        for (int i = 0; i < tournamentSize; i++) {
+            int randomId = (int) (Math.random() * pop.size());
+            tournament.saveIndividual(i, pop.getIndividual(randomId));
+        }
+        // Get the fittest
+        Individual fittest = tournament.getMoreCompetent();
+        return fittest;
+    }
 
 	@Override
 	public Result getResult() {

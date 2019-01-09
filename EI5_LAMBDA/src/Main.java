@@ -15,8 +15,6 @@ public class Main {
 		});
 		System.out.println(w1.execute(3.14));
 		
-		
-		
 		Wrapper<Double,Integer> w2 = new Wrapper<>(Main::function);
 		System.out.println(w2.execute(3.14));
 
