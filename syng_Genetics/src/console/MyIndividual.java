@@ -39,8 +39,8 @@ public class MyIndividual extends Individual{
         return genes.length;
     }
     
-    public void setGene(int index, byte value) {
-        genes[index] = value;
+    public void setGene(int index, Object value) {
+        genes[index] = (byte) value;
         skill = 0;
     }
 
@@ -51,5 +51,7 @@ public class MyIndividual extends Individual{
     public int getSkill() {
     	return skill;
     }
+
+
 
 }

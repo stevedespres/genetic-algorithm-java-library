@@ -7,6 +7,8 @@ public abstract class Individual {
 	/* Fonction pour recupérer le gene de l'individu */
 	public abstract Object getGene();
 	public abstract byte getGene(int index);
+	public abstract int getGeneLength();
+	public abstract void setGene(int index, Object value);
 	public abstract int getSkill();
 	public abstract void setSkill(int skill);
 	public abstract int size();

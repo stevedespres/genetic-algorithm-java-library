@@ -65,15 +65,15 @@ public class Main {
 	
 		
 		/** Fonction de croisement **/ 
-		CrossOverFunction<MyIndividual[], MyIndividual> crossoverFunction = new CrossOverFunction<>(				
+		CrossOverFunction<Individual[], Individual> crossoverFunction = new CrossOverFunction<>(				
 			
 				(individuals) -> {		
 					System.out.println("Fonction de croisement");
-					MyIndividual individual1 = individuals[0];
-					MyIndividual individual2 = individuals[1];
+					Individual individual1 = individuals[0];
+					Individual individual2 = individuals[1];
 					
 					double uniformRate = 0.5;
-					MyIndividual newSol = new MyIndividual();
+					Individual newSol = new MyIndividual();
 			        // Loop through genes
 			        for (int i = 0; i < individual1.getGeneLength(); i++) {
 			            // Crossover
