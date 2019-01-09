@@ -3,6 +3,8 @@ package Individual;
 import java.util.ArrayList;
 import java.util.List;
 
+import testQL.Individual;
+
 public class Population {
 	
 	
@@ -45,7 +47,7 @@ public class Population {
         return size;
     }
 
-    public Individual getMoreCompetent() {
+    /*public Individual getMoreCompetent() {
     	Individual moreCompetent = individuals.get(0);
     	for(int i=1; i<individuals.size(); i++) {
     		if(individuals.get(i).getSkill() > moreCompetent.getSkill()) {
@@ -53,6 +55,16 @@ public class Population {
     		}
     	}
     	return moreCompetent;
+    }*/
+    public Individual getMoreCompetent() {
+        Individual moreCompetent = individuals.get(0);
+        // Loop through individuals to find more competent
+        for (int i = 0; i < size; i++) {
+            if (moreCompetent.getCompetence() <= getIndividual(i).getCompetence()) {
+                moreCompetent = getIndividual(i);
+            }
+        }
+        return moreCompetent;
     }
     
     // Save individual
