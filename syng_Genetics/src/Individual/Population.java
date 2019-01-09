@@ -2,20 +2,27 @@ package Individual;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+/**
+ * Population class
+ * Initializing population, creating individuals from user creating funtion
+ * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ */
 public class Population {
 	
-	
+	private final static Logger logger = Logger.getLogger(Population.class.getName());
 	private final int size;
 	private List<Individual> individuals;
 	
 	/**
-	 * Constructeur
+	 * Constructor
 	 * @param size
 	 * @param percentage
 	 */
 	public Population(int size) {
 		this.size = size;
+		logger.info("creation of a new population of "+this.size+" individual");
 		this.individuals = new ArrayList<>();
 	}
 	
@@ -24,6 +31,7 @@ public class Population {
 	 * @param builder
 	 */
 	public void init(Individual builder) {
+		logger.info("Individual init");
 		for(int i=0; i< size ; i++) {
 			individuals.add(builder.create());
 		}

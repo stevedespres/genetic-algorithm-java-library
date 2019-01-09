@@ -4,21 +4,30 @@ import console.MyIndividual;
 import functions.CrossOverFunction;
 import functions.EvaluationFunction;
 import functions.MutationFunction;
+
+import java.util.logging.Logger;
+
 import Individual.Individual;
 import Individual.Population;
 import Individual.Skill;
 import api.GeneticAPI;
 
+/**
+ * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ */
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Lancement de l'algo");
+		
+		Logger logger = Logger.getLogger(Main.class.getName());
+		
 		/* Initialisation de l'api */
 		GeneticAPI genetic = new GeneticAPI();
-
+		logger.info("New genetic API created");
+		
 		/* Initialisation des paramètres */
 		Individual individu = new MyIndividual();
-		
+		logger.info("Create individual from \"MyIndividual\" -- user class ");
 		genetic.setIndividualImplementation(individu); // Implementation d'un individu par l'utilisateur
 		genetic.setPopulation(50); // Population de 50 individus, 50% de selection à chaque cycle
 		
@@ -26,7 +35,7 @@ public class Main {
 		EvaluationFunction<Population,Individual> evaluationFunction = new EvaluationFunction<>(				
 				(pop) -> {	
 					
-					System.out.println("Fonction d'evaluation");
+					logger.info("Fonction d'evaluation");
 					int tournamentSize = 5;
 			        // Create a tournament population
 			        Population tournament = new Population(tournamentSize);
@@ -34,7 +43,7 @@ public class Main {
 			        // For each place in the tournament get a random individual
 			        for (int i = 0; i < tournamentSize; i++) {
 			            randomId = (int) (Math.random() * pop.getSize());
-			            System.out.println(randomId);
+			            //--------- System.out.println(randomId);
 			            tournament.saveIndividual(i, pop.getIndividual(randomId));
 			        }
 			        // Get the fittest
@@ -49,7 +58,6 @@ public class Main {
 		/** Fonction de mutation **/ 
 		MutationFunction<MyIndividual,Void> mutationFunction = new MutationFunction<>(				
 				individual -> {	
-					System.out.println("Fonction de mutation");
 					double mutationRate = 0.0003;
 					for (int i = 0; i < individual.getGeneLength(); i++) {
 			            if (Math.random() <= mutationRate) {
@@ -62,13 +70,13 @@ public class Main {
 					return null;
 		});		
 		genetic.setMutationFunction(mutationFunction);
-	
 		
 		/** Fonction de croisement **/ 
 		CrossOverFunction<Individual[], Individual> crossoverFunction = new CrossOverFunction<>(				
 			
-				(individuals) -> {		
-					System.out.println("Fonction de croisement");
+				(individuals) -> {	
+					// pb ici !
+					logger.info("Fonction de croisement");
 					Individual individual1 = individuals[0];
 					Individual individual2 = individuals[1];
 					
@@ -86,8 +94,7 @@ public class Main {
 			        return newSol;
 		});		
 		genetic.setCrossOverFunction(crossoverFunction);
-	
-		
+
 		/** Modelisation de la solution a atteindre **/ 
 		String stringSolution = "1111000000000000000000000000001111100000000000000000000000001111";
 		byte[] solution = new byte[stringSolution.length()];
@@ -102,15 +109,8 @@ public class Main {
 		}		
 		Skill skill = new MySkill(solution);
 		genetic.setSkill(skill);
-		
-		
-		
 		genetic.init();
-		
 		genetic.run();
-		
-		
-	
 	}
 	
 }

@@ -2,6 +2,11 @@ package console;
 
 import Individual.Individual;
 
+/**
+ * This class is a test example for the algorithm.
+ * This one should be given by the user
+ * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ */
 public class MyIndividual extends Individual{
 
 	static final int geneLength = 64; // Taille du gene
@@ -10,7 +15,7 @@ public class MyIndividual extends Individual{
     private int skill = 0;
     
 	/**
-	 * Fonction de création d'individus 
+	 * Fonction de création d'individu
 	 */
 	public Individual create() {
 	    for (int i = 0; i < geneLength; i++) {
@@ -21,7 +26,7 @@ public class MyIndividual extends Individual{
 	}
 	
 	/**
-	 * Recuperation des genes de l'individu
+	 * Récuperation des genes de l'individu
 	 */
 	public byte[] getGene() {
 		return genes;
@@ -31,6 +36,9 @@ public class MyIndividual extends Individual{
         return genes[index];
     }
     
+    /**
+     * POURQUOI ON A getGeneLength ET LA FONCTION size()? LES DEUX RENVOIENT LE MËME RESULTAT ! 
+     */
     public int getGeneLength() {
     	return geneLength;
     }

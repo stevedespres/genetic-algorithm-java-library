@@ -3,8 +3,13 @@ package console;
 import Individual.Individual;
 import Individual.Skill;
 
+/**
+ * 
+ * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ */
 public class MySkill implements Skill {
 	
+	// TAILLE DU TABLEAU A REVOIR
     static byte[] solution = new byte[64];
     
     public MySkill(byte[] newSolution) {
@@ -24,6 +29,7 @@ public class MySkill implements Skill {
         // array
         for (int i = 0; i < newSolution.length(); i++) {
             String character = newSolution.substring(i, i + 1);
+            // ONLY 1 AND 0 ALLOWED
             if (character.contains("0") || character.contains("1")) {
                 solution[i] = Byte.parseByte(character);
             } else {
