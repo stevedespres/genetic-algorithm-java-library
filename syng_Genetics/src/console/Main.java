@@ -21,17 +21,17 @@ public class Main {
 		
 		Logger logger = Logger.getLogger(Main.class.getName());
 		
-		/* Initialisation de l'api */
+		/* Initializing API */
 		GeneticAPI genetic = new GeneticAPI();
 		logger.info("New genetic API created");
 		
-		/* Initialisation des paramètres */
+		/* initializing parameters */
 		Individual individu = new MyIndividual();
 		logger.info("Create individual from \"MyIndividual\" -- user class ");
 		genetic.setIndividualImplementation(individu); // Implementation d'un individu par l'utilisateur
 		genetic.setPopulation(50); // Population de 50 individus, 50% de selection à chaque cycle
 		
-		/** Fonction d'évaluation **/ 
+		/** Evaluation function **/ 
 		EvaluationFunction<Population,Individual> evaluationFunction = new EvaluationFunction<>(				
 				(pop) -> {	
 					

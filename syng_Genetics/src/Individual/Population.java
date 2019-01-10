@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 
 /**
  * Population class
- * Initializing population, creating individuals from user creating funtion
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * Initializing population, creating individuals from user's function
+ * @author Nathan DUBERNARD, Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, 
  */
 public class Population {
 	
@@ -22,12 +22,12 @@ public class Population {
 	 */
 	public Population(int size) {
 		this.size = size;
-		logger.info("creation of a new population of "+this.size+" individual");
+		logger.info("creation of a new population of "+ this.size+" individual");
 		this.individuals = new ArrayList<>();
 	}
 	
 	/**
-	 * Création de la population d'individus
+	 * creation of population
 	 * @param builder
 	 */
 	public void init(Individual builder) {
@@ -63,14 +63,21 @@ public class Population {
     	return moreCompetent;
     }*/
     public Individual getMoreCompetent() {
-        Individual moreCompetent = individuals.get(0);
-        // Loop through individuals to find more competent
-        for (int i = 0; i < size; i++) {
-            if (moreCompetent.getSkill() <= getIndividual(i).getSkill()) {
-                moreCompetent = getIndividual(i);
+    	if(individuals.size()>0)
+    	{
+    		Individual moreCompetent = individuals.get(0);
+            // Loop through individuals to find more competent
+            for (int i = 0; i < size; i++) {
+                if (moreCompetent.getSkill() <= getIndividual(i).getSkill()) {
+                    moreCompetent = getIndividual(i);
+                }
             }
-        }
-        return moreCompetent;
+            return moreCompetent;
+    	}
+    	else
+    		logger.info("list not initialized yet !! ");
+    		return null;
+        
     }
     
     // Save individual

@@ -32,13 +32,11 @@ public class GeneticAPI implements IGeneticApi {
 	@Override
 	public void setIndividualImplementation(Individual builder) {
 		this.individualBuilder = builder;
-
 	}
 
 	@Override
 	public void setEvaluationFunction(EvaluationFunction function) {
 		this.evaluationFunction = function;
-
 	}
 
 	@Override
@@ -81,12 +79,10 @@ public class GeneticAPI implements IGeneticApi {
 
 		// Interation number
 		int generationCount = 0;
-
 		// the highest skill score
 		int skillMoreCompetent = 0;
-		
 		// CONDITION D'ARRET N EST JAMAIS VRAIE 
-		while (/*generationCount<=population.getSize()*/skillMoreCompetent < skill.getMaxSkill()) {
+		while (/*generationCount<=population.getSize()*/skillMoreCompetent <= skill.getMaxSkill()) {
 			skillMoreCompetent = skill.getSkill(population.getMoreCompetent());
 			population.getMoreCompetent().setSkill(skillMoreCompetent);
 			generationCount++;
@@ -94,7 +90,6 @@ public class GeneticAPI implements IGeneticApi {
 			logger.info("Generation: " + generationCount + " competence: " + population.getMoreCompetent().getSkill());
 			evolvePopulation();
 		}
-
 		logger.info("Solution found!");
 		logger.info("Generation: " + generationCount);
 		logger.info("Genes:");
@@ -107,9 +102,7 @@ public class GeneticAPI implements IGeneticApi {
 	 * @return
 	 */
 	private void evolvePopulation() {
-
 		Population newPopulation = new Population(population.getSize());
-
 		// Croisement
 		for (int i = 0; i < population.getSize(); i++) {
 			Individual indiv1 = (Individual) evaluationFunction.execute(population);

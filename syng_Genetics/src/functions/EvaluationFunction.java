@@ -2,10 +2,17 @@ package functions;
 
 import java.util.function.Function;
 
+/**
+ * 
+ * @author Youssef ZIYYAT, Nathan DUBERNARD, Steve DESPRES, Guillaume COURTIN 
+ *
+ * @param <T>
+ * @param <R>
+ */
 public class EvaluationFunction<T, R> {
 	Function<T, R> function;
 	/**
-	 * Constructeur 
+	 * Constructor 
 	 * @param function
 	 */
 	public EvaluationFunction(Function<T, R> function) {
@@ -13,7 +20,7 @@ public class EvaluationFunction<T, R> {
 	}
 	
 	/**
-	 * Execution de la fonction d'evaluation
+	 * Execution of evaluation function
 	 * @param param
 	 * @return
 	 */
