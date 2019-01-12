@@ -44,11 +44,13 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	private static StopLimitMode stopLimitMode = StopLimitMode.No;
 	private static int stopLimitParameter = 0;
 	
+	private static boolean init = false;
+	
 	/**
 	 * Set Individuals Builder
 	 */
 	@Override
-	public void setIndividualCreator(IndividualCreator creator) {
+	public void setIndividualCreator(final IndividualCreator creator) {
 		this.individualCreator = creator;
 	}
 
@@ -56,7 +58,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Set Evaluation Function
 	 */
 	@Override
-	public void setEvaluationFunction(EvaluationFunction<Population, Void> function) {
+	public void setEvaluationFunction(final EvaluationFunction<Population, Void> function) {
 		this.evaluationFunction = function;
 	}
 
@@ -64,7 +66,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Set Mutation Function
 	 */
 	@Override
-	public void setMutationFunction(MutationFunction<Individual, Void> function) {
+	public void setMutationFunction(final MutationFunction<Individual, Void> function) {
 		this.mutationFunction = function;
 	}
 
@@ -72,7 +74,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Set CrossOver Function
 	 */
 	@Override
-	public void setCrossOverFunction(CrossOverFunction<Individual[], Individual> function) {
+	public void setCrossOverFunction(final CrossOverFunction<Individual[], Individual> function) {
 		this.crossoverFunction = function;
 	}
 
@@ -81,17 +83,20 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * @throws GeneticAlgorithmException 
 	 */
 	@Override
-	public void setPopulation(int size) throws GeneticAlgorithmException {
+	public void setPopulation(final int size) throws GeneticAlgorithmException {
 		population = new Population(size);
 	}
 
 	/**
-	 * Init Genetic Algorithm
+	 * Initialize Genetic Algorithm
+	 * @throws GeneticAlgorithmException 
 	 */
 	@Override
-	public void init() {
+	public void init() throws GeneticAlgorithmException {
 		LOGGER.info("Initialize population");
+		checkImplementation();
 		population.init(individualCreator);
+		init=true;
 	}
 
 	/**
@@ -102,7 +107,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	public void run() throws GeneticAlgorithmException {
 		
 		LOGGER.info("Run Genetic Algorithm");
-		
+		checkInitialization();
 		// Iteration number
 		int generationCount = 0;
 		
@@ -193,7 +198,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * @param pop
 	 * @param ind
 	 */
-	public Population replaceIndividual(Population pop, Individual ind, int i) {
+	public Population replaceIndividual(final Population pop,final Individual ind, int i) {
 		
 		/* Default mode */ 
 		if(individualReplacementMode == IndividualReplacementMode.Default) {
@@ -225,7 +230,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * @return
 	 * @throws GeneticAlgorithmException 
 	 */
-	public boolean stopLimit(int iteration, int s) throws GeneticAlgorithmException {
+	public boolean stopLimit(final int iteration,final int s) throws GeneticAlgorithmException {
 		/* No limit */
 		if(stopLimitMode == StopLimitMode.No) {
 			return false;
@@ -269,7 +274,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Define Parents selection modes
 	 */
 	@Override
-	public void setParentsSelectionMode(ParentsSelectionMode mode) {
+	public void setParentsSelectionMode(final ParentsSelectionMode mode) {
 		parentsSelectionMode = mode;
 	}
 
@@ -277,7 +282,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Define Individual Replacement modes
 	 */
 	@Override
-	public void setIndividualReplacementMode(IndividualReplacementMode mode) {
+	public void setIndividualReplacementMode(final IndividualReplacementMode mode) {
 		individualReplacementMode = mode;
 	}
 
@@ -285,8 +290,44 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Define Stop mode limit
 	 */
 	@Override
-	public void setStopMode(StopLimitMode mode, int parameter) {
+	public void setStopMode(final StopLimitMode mode, final int parameter) {
 		stopLimitMode = mode;
 		stopLimitParameter = parameter;
+	}
+	
+	private void checkImplementation() throws GeneticAlgorithmException {
+		StringBuilder error = new StringBuilder();
+		boolean success = true;
+		
+		if(individualCreator == null) {
+			error.append("IndividualCreator is not implemented\n");
+			success=false;
+		}
+		if(population == null) {
+			error.append("Population is not implemented\n");
+			success=false;
+		}
+		if(evaluationFunction == null) {
+			error.append("EvaluationFunction is not implemented\n");
+			success=false;
+		}
+		if(mutationFunction == null) {
+			error.append("MutationFunction is not implemented\n");
+			success=false;
+		}
+		if(crossoverFunction == null) {
+			error.append("CrossoverFunction is not implemented\n");
+			success=false;
+		}
+		
+		if(!success) {
+			throw new GeneticAlgorithmException(error.toString());
+		}
+	}
+	
+	private void checkInitialization() throws GeneticAlgorithmException {
+		if(!init) {
+			throw new GeneticAlgorithmException("Genetic Algorithm need to be initializing");
+		}
 	}
 }

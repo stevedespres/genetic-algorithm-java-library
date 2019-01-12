@@ -20,7 +20,7 @@ public class Results {
 	 * @param nbGen Number of generation
 	 * @param bestIndividual Most Competent Individual
 	 */
-	public Results(boolean solFound, int nbGen, Individual bestIndividual){
+	public Results(final boolean solFound,final int nbGen,final Individual bestIndividual){
 		solutionFound = solFound;
 		nbGenerations = nbGen;
 		mostCompetent = bestIndividual;

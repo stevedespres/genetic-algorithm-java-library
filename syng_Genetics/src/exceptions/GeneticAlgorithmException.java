@@ -12,7 +12,7 @@ public class GeneticAlgorithmException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public GeneticAlgorithmException(String ex) {
+	public GeneticAlgorithmException(final String ex) {
 		super(ex);
 	}
 }

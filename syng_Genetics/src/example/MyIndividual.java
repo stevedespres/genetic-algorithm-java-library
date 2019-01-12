@@ -48,7 +48,7 @@ public class MyIndividual extends Individual{
     /**
      * Set Gene at index
      */
-    public void setGene(int index, Object value) {
+    public void setGene(final int index,final Object value) {
         genes[index] = (byte) value;
     }
     
@@ -62,7 +62,7 @@ public class MyIndividual extends Individual{
     /**
      * Set Skill
      */
-    public void setSkill( int s) {
+    public void setSkill(final int s) {
     	skill = s;
     }
 

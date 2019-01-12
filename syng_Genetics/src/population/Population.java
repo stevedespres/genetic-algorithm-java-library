@@ -25,7 +25,7 @@ public class Population {
 	 * @param percentage
 	 * @throws GeneticAlgorithmException 
 	 */
-	public Population(int size) throws GeneticAlgorithmException {
+	public Population(final int size) throws GeneticAlgorithmException {
 		if(size > 0) {
 			this.size = size;
 			this.individuals = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Population {
 	 * Creation of population
 	 * @param builder
 	 */
-	public void init(IndividualCreator creator) {
+	public void init(final IndividualCreator creator) {
 		for(int i=0; i< size ; i++) {
 			individuals.add(creator.CreateIndividual());
 		}
@@ -49,7 +49,7 @@ public class Population {
 	 * @param index
 	 * @return Individual
 	 */
-    public Individual getIndividual(int index) {
+    public Individual getIndividual(final int index) {
         return individuals.get(index);
     }
     
@@ -95,7 +95,7 @@ public class Population {
      * @param index
      * @param indiv
      */
-    public void saveIndividual(int index, Individual indiv) {
+    public void saveIndividual(final int index,final Individual indiv) {
         individuals.add(index, indiv);
     }
 }

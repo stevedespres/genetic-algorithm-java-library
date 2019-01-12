@@ -13,18 +13,18 @@ public abstract class Individual {
 	public abstract Object getGene();
 	
 	/* Get a specific gene */ 
-	public abstract Object getGene(int index);
+	public abstract Object getGene(final int index);
 	
 	/* Get individual genes length */
 	public abstract int getGeneLength();
 	
 	/* Set a value for a specific gene */
-	public abstract void setGene(int index, Object value);
+	public abstract void setGene(final int index, final Object value);
 	
 	/* Get the individual skill */
 	public abstract int getSkill();
 	
 	/* Set an individual skill used to evaluate individual */
-	public abstract void setSkill(int skill);
+	public abstract void setSkill(final int skill);
 		
 }
