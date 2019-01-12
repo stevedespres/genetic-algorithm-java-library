@@ -3,6 +3,7 @@ package functions;
 import java.util.function.Function;
 
 /**
+ * Evaluation Function
  * 
  * @author Youssef ZIYYAT, Nathan DUBERNARD, Steve DESPRES, Guillaume COURTIN 
  *
@@ -20,7 +21,7 @@ public class EvaluationFunction<T, R> {
 	}
 	
 	/**
-	 * Execution of evaluation function
+	 * Run Evaluation Function
 	 * @param param
 	 * @return
 	 */

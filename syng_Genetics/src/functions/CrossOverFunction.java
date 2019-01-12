@@ -2,11 +2,19 @@ package functions;
 
 import java.util.function.Function;
 
+/**
+ * Cross Over Function
+ * 
+ * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ *
+ * @param <T>
+ * @param <R>
+ */
 public class CrossOverFunction<T, R> {
 
 	Function<T, R> function;
 	/**
-	 * Constructeur 
+	 * Constructor
 	 * @param function
 	 */
 	public CrossOverFunction(Function<T, R> function) {
@@ -14,7 +22,7 @@ public class CrossOverFunction<T, R> {
 	}
 	
 	/**
-	 * Execution de la fonction d'evaluation
+	 * Run Evaluation Function
 	 * @param param
 	 * @return
 	 */

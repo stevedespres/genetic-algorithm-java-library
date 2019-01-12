@@ -2,10 +2,18 @@ package functions;
 
 import java.util.function.Function;
 
+/**
+ * Mutation Function
+ * 
+ * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ *
+ * @param <T>
+ * @param <R>
+ */
 public class MutationFunction<T, R> {
 	Function<T, R> function;
 	/**
-	 * Constructeur 
+	 * Constructor 
 	 * @param function
 	 */
 	public MutationFunction(Function<T, R> function) {
@@ -13,7 +21,7 @@ public class MutationFunction<T, R> {
 	}
 	
 	/**
-	 * Execution de la fonction d'evaluation
+	 * Run Mutation Functions
 	 * @param param
 	 * @return
 	 */
