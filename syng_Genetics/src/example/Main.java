@@ -116,9 +116,9 @@ public class Main {
 			genetic.setCrossOverFunction(crossoverFunction);
 			
 			/* Set Modes */
-			genetic.setParentsSelectionMode(ParentsSelectionMode.Random);
-			genetic.setIndividualReplacementMode(IndividualReplacementMode.Default);
-			genetic.setStopMode(StopLimitMode.No, 0);
+			genetic.setParentsSelectionMode(ParentsSelectionMode.RANDOM);
+			genetic.setIndividualReplacementMode(IndividualReplacementMode.DEFAULT);
+			genetic.setStopMode(StopLimitMode.NO, 0);
 			
 			/* Initialize Genetic Algorithm */ 
 			genetic.init();

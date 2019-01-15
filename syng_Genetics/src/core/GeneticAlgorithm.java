@@ -39,9 +39,9 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	private Results results;
 	
 	/* Modes */ 
-	private static ParentsSelectionMode parentsSelectionMode = ParentsSelectionMode.Random;
-	private static IndividualReplacementMode individualReplacementMode = IndividualReplacementMode.Default;
-	private static StopLimitMode stopLimitMode = StopLimitMode.No;
+	private static ParentsSelectionMode parentsSelectionMode = ParentsSelectionMode.RANDOM;
+	private static IndividualReplacementMode individualReplacementMode = IndividualReplacementMode.DEFAULT;
+	private static StopLimitMode stopLimitMode = StopLimitMode.NO;
 	private static int stopLimitParameter = 0;
 	
 	private static boolean init = false;
@@ -167,7 +167,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	private Individual selectParent() throws GeneticAlgorithmException {
 		
 		/* Random parents selection mode */
-		if(parentsSelectionMode == ParentsSelectionMode.Random) {
+		if(parentsSelectionMode == ParentsSelectionMode.RANDOM) {
 			/** Selection (fitness) **/
 		    int randomId=0;
 		    int tournamentSize = 5;
@@ -184,7 +184,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 		}
 		
 		/* Bests parents selection mode */ 
-		else if(parentsSelectionMode == ParentsSelectionMode.Bests) {
+		else if(parentsSelectionMode == ParentsSelectionMode.BESTS) {
 			return population.getMoreCompetent();
 		}
 		else {
@@ -201,18 +201,18 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	public Population replaceIndividual(final Population pop,final Individual ind, int i) {
 		
 		/* Default mode */ 
-		if(individualReplacementMode == IndividualReplacementMode.Default) {
+		if(individualReplacementMode == IndividualReplacementMode.DEFAULT) {
 			pop.saveIndividual(i, ind);
 			return pop;
 		}
 		/* Random mode */ 
-		else if(individualReplacementMode == IndividualReplacementMode.Random) {
+		else if(individualReplacementMode == IndividualReplacementMode.RANDOM) {
 			int index = (int) Math.random() * population.getSize();
 			pop.saveIndividual(index, ind);
 			return pop;
 		}
 		/* Replace a less competent individual */
-		else if(individualReplacementMode == IndividualReplacementMode.Best) {
+		else if(individualReplacementMode == IndividualReplacementMode.BEST) {
 			/* Evaluate skills of individuals of the population */
 			evaluationFunction.execute(pop);
 			for(int j=0; j>pop.getSize();j++) {
@@ -232,32 +232,30 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 */
 	public boolean stopLimit(final int iteration,final int s) throws GeneticAlgorithmException {
 		/* No limit */
-		if(stopLimitMode == StopLimitMode.No) {
+		if(stopLimitMode == StopLimitMode.NO) {
 			return false;
 		} 
 		/* Individual evolution limit */
-		else if(stopLimitMode == StopLimitMode.IndividualEvolution) {
+		else if(stopLimitMode == StopLimitMode.INDIVIDUAL_EVOLUTION) {
 			if(iteration > stopLimitParameter) {
 				// Check individual evolution
 			}
 		}
 		/* Population Individual limit */
-		else if(stopLimitMode == StopLimitMode.PopulationEvolution) {
+		else if(stopLimitMode == StopLimitMode.POPULATION_EVOLUTION) {
 			if(iteration > stopLimitParameter) {
 				// Check population evolution
 			}
 		}
 		/* Time limit */
-		else if(stopLimitMode == StopLimitMode.Time) {
+		else if(stopLimitMode == StopLimitMode.TIME) {
 			if(s > stopLimitParameter) {
 				return true;
 			}
 		}
 		/* Iterations limit */
-		else if(stopLimitMode == StopLimitMode.Iteration) {
-			if(iteration > stopLimitParameter) {
+		else if(stopLimitMode == StopLimitMode.ITERATION && iteration > stopLimitParameter) {
 				return true;
-			}
 		}
 		return false;
 	}

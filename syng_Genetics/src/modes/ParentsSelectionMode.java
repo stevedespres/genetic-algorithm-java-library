@@ -9,6 +9,6 @@ package modes;
  * Random : choice random parents
  */
 public enum ParentsSelectionMode {
-	Bests,
-	Random;
+	BESTS,
+	RANDOM;
 }

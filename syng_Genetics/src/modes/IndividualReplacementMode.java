@@ -10,7 +10,7 @@ package modes;
  * Random :  the news individuals replace randomly the members of the population
  */
 public enum IndividualReplacementMode {
-	Default,
-	Best, 
-	Random;
+	DEFAULT,
+	BEST, 
+	RANDOM;
 }

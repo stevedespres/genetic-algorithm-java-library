@@ -13,10 +13,10 @@ package modes;
  * 
  */
 public enum StopLimitMode { 
-	Time, 
-	Iteration, 
-	PopulationEvolution, 
-	IndividualEvolution,
-	No;
+	TIME, 
+	ITERATION, 
+	POPULATION_EVOLUTION, 
+	INDIVIDUAL_EVOLUTION,
+	NO;
 }
 
