@@ -32,26 +32,6 @@ public class GeneticAlgorithmTest {
 	}
 
 	@Test
-	public void testInit() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRun() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testStopLimit() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetResult() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testSetParentsSelectionMode() {
 		fail("Not yet implemented");
 	}
@@ -63,6 +43,21 @@ public class GeneticAlgorithmTest {
 
 	@Test
 	public void testSetStopMode() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testInit() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testRun() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetResult() {
 		fail("Not yet implemented");
 	}
 

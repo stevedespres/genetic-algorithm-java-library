@@ -84,7 +84,7 @@ public interface IGeneticAlgorithm {
 	 * Get Results
 	 * @return Results
 	 */
-	public Results getResult();
+	public Results getResult() throws GeneticAlgorithmException;
 
 	
 		
