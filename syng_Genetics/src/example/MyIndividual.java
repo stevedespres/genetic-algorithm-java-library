@@ -8,7 +8,7 @@ import population.Individual;
  * 
  * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  */
-public class MyIndividual extends Individual{
+public class MyIndividual implements Individual{
 
 	/* Parameters */
 	static int geneLength;
