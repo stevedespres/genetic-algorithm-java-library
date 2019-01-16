@@ -1,12 +1,4 @@
-/Individual/
-/api/
-/console/
-/functions/
-/modes/
-/results/
 /core/
-/usecase/
-/example/
+/functions/
 /population/
-/mode/
-/exceptions/
+/results/

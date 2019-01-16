@@ -1,5 +1,9 @@
 package core;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 import exceptions.GeneticAlgorithmException;
@@ -12,6 +16,9 @@ import modes.StopLimitMode;
 import population.Individual;
 import population.IndividualCreator;
 import population.Population;
+import process.CrossOverThread;
+import process.EvaluationThread;
+import process.MutationThread;
 import results.Results;
 
 /**
@@ -26,12 +33,12 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	/* Logger */
 	private final static Logger LOGGER = Logger.getLogger(GeneticAlgorithm.class.getName());
 
-	/* Population and Invividuals */
+	/* Population and Individuals */
 	private IndividualCreator individualCreator;
 	private Population population;
 
 	/* Functions */
-	private EvaluationFunction<Population, Void> evaluationFunction;
+	private EvaluationFunction<Individual, Void> evaluationFunction;
 	private MutationFunction<Individual, Void> mutationFunction;
 	private CrossOverFunction<Individual[], Individual> crossoverFunction;
 	
@@ -58,7 +65,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Set Evaluation Function
 	 */
 	@Override
-	public void setEvaluationFunction(final EvaluationFunction<Population, Void> function) {
+	public void setEvaluationFunction(final EvaluationFunction<Individual, Void> function) {
 		this.evaluationFunction = function;
 	}
 
@@ -108,10 +115,10 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 		
 		LOGGER.info("Run Genetic Algorithm");
 		checkInitialization();
-		// Iteration number
+		/* Iteration number */
 		int generationCount = 0;
 		
-		// While skill of individual is not optimum or stop limit reached
+		/* While skill of individual is not optimum or stop limit reached */
 		while (population.getMoreCompetent().getSkill() < population.getMoreCompetent().getGeneLength() || stopLimit(generationCount, 0) ) {
 			generationCount++;
 			LOGGER.info("Generation: " + generationCount + " competence: " + population.getMoreCompetent().getSkill());
@@ -129,34 +136,101 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 		
 		/* Create new population */
 		Population newPopulation = new Population(population.getSize());
+		/* CrossOver */
+		crossover(newPopulation);
+		/* Mutation of individuals */ 
+		mutate(newPopulation);
+		/* Evaluate skills of individuals of the new population */
+		evaluate(newPopulation);
+		/* Evolve */
+		population = newPopulation;
+	}
+	
+	/**
+	 * Evaluate a population
+	 * @param pop
+	 */
+	private void evaluate(final Population pop) {
+		LOGGER.info("EVALUATION");
+		/* Service to execute in parallel */ 
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		/* For each individual */
+		for(Individual ind : pop.getIndividuals()) {
+			/* Evaluate in a thread */
+			exec.execute(new EvaluationThread(evaluationFunction, ind));
+		}
+		exec.shutdown();
+		while(!exec.isTerminated());
+	}
+	
+	/**
+	 * Select parents and crossover 
+	 * @return
+	 * @throws GeneticAlgorithmException
+	 */
+	private void crossover(Population pop) throws GeneticAlgorithmException {
 		
-		for (int i = 0; i < population.getSize(); i++) {
-			/* Evaluation */
-			LOGGER.info("EVALUATION");
-			evaluationFunction.execute(population);
-			/* Selection */
+		/* List of threads */
+		List<CrossOverThread> list = new ArrayList<>();
+		/* Service to execute in parallel */ 
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		
+		/* For each individual */
+		for (int i = 0; i < pop.getSize(); i++) {	
+			
+			/* Select parents and crossover */
 			LOGGER.info("SELECTION");
 			Individual indiv1 = selectParent();
 			Individual indiv2 = selectParent();
+
 			/* Crossover */
 			LOGGER.info("CROSSOVER");
-			Individual[] tab = { indiv1, indiv2 };
-			Individual newIndiv = crossoverFunction.execute(tab);
-			/* Replacement */
-			LOGGER.info("REPLACEMENT");
-			newPopulation = replaceIndividual(newPopulation, newIndiv, i);
-		}
+			Individual[] parents = { indiv1, indiv2 };
 
-		/* Mutation */ 
-		for (int i = 0; i < newPopulation.getSize(); i++) {
-			mutationFunction.execute(newPopulation.getIndividual(i));
+			/* CrossOver in a thread */
+			CrossOverThread crossOverThread = new CrossOverThread(crossoverFunction, parents);
+			exec.execute(crossOverThread);		
+			list.add(crossOverThread);		
 		}
-		
-		/* Evaluate skills of individuals of the new population */
-		evaluationFunction.execute(newPopulation);
-		
-		/* Evolve */
-		population = newPopulation;
+		exec.shutdown();
+		while(!exec.isTerminated());
+		/* Update individuals in population */
+		replacement(pop, list);
+	}
+	
+	/**
+	 * Replace individuals after Crossover
+	 * @param pop
+	 * @param list
+	 * @throws GeneticAlgorithmException
+	 */
+	private void replacement(Population pop, List<CrossOverThread> list) throws GeneticAlgorithmException {
+		int pos = 0;
+		for (CrossOverThread coThread : list)
+		{
+			/* Get child */
+			Individual child = coThread.getChild();
+			/* Replacement */
+			replaceIndividual(pop, child, pos);
+			pos++;
+		}
+	}
+	
+	/**
+	 * Mutate the individuals
+	 * @param pop
+	 */
+	private void mutate(final Population pop) {
+		LOGGER.info("MUTATION");
+		/* Service to execute in parallel */ 
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+		/* For each individual */
+		for (Individual ind : pop.getIndividuals()) {
+			/* Evaluate in a thread */
+			exec.execute(new MutationThread(mutationFunction, ind));
+		}
+		exec.shutdown();
+		while(!exec.isTerminated());
 	}
 	
 	/**
@@ -198,31 +272,27 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * @param pop
 	 * @param ind
 	 */
-	public Population replaceIndividual(final Population pop,final Individual ind, int i) {
-		
+	private void replaceIndividual(final Population pop,final Individual ind, int i) {
+		LOGGER.info("REPLACEMENT");
 		/* Default mode */ 
 		if(individualReplacementMode == IndividualReplacementMode.DEFAULT) {
 			pop.saveIndividual(i, ind);
-			return pop;
 		}
 		/* Random mode */ 
 		else if(individualReplacementMode == IndividualReplacementMode.RANDOM) {
 			int index = (int) Math.random() * population.getSize();
 			pop.saveIndividual(index, ind);
-			return pop;
 		}
 		/* Replace a less competent individual */
 		else if(individualReplacementMode == IndividualReplacementMode.BEST) {
 			/* Evaluate skills of individuals of the population */
-			evaluationFunction.execute(pop);
+			evaluate(pop);
 			for(int j=0; j>pop.getSize();j++) {
 				if(ind.getSkill() > pop.getIndividual(i).getSkill()) {
 					pop.saveIndividual(j, ind);
-					return pop;
 				}
 			}
 		}
-		return pop;
 	}
 	
 	/**

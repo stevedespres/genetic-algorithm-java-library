@@ -9,7 +9,6 @@ import modes.ParentsSelectionMode;
 import modes.StopLimitMode;
 import population.Individual;
 import population.IndividualCreator;
-import population.Population;
 import results.Results;
 
 /**
@@ -30,7 +29,7 @@ public interface IGeneticAlgorithm {
 	 * Define Evaluation Function
 	 * @param function Evaluation function
 	 */
-	public void setEvaluationFunction(final EvaluationFunction<Population, Void> function);
+	public void setEvaluationFunction(final EvaluationFunction<Individual, Void> function);
 	
 	/**
 	 * Define Mutation function

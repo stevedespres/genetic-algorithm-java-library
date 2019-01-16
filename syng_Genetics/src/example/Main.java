@@ -8,7 +8,6 @@ import modes.ParentsSelectionMode;
 import modes.StopLimitMode;
 import population.Individual;
 import population.IndividualCreator;
-import population.Population;
 
 import java.util.logging.Logger;
 
@@ -40,8 +39,8 @@ public class Main {
 			genetic.setPopulation(50);
 			
 			/** Example of Evaluation function **/ 
-			EvaluationFunction<Population,Void> evaluationFunction = new EvaluationFunction<>(				
-					(pop) -> {							
+			EvaluationFunction<Individual,Void> evaluationFunction = new EvaluationFunction<>(				
+					(ind) -> {							
 						 /** Initialize an optimum solution **/ 
 						 byte[] solution;
 						 String character;
@@ -58,19 +57,18 @@ public class Main {
 					 	    }
 					     }
 						
-						/** Calculate skill for each individuals compared by the optimum solution **/		
-						 int skill = 0;
-						 for(Individual ind : pop.getIndividuals()) {
-							skill = 0;
-						 	/* Loop through our individuals genes and compare them to the solution */
-					        for (int i = 0; i < ind.getGeneLength() && i < solution.length; i++) {
-					            if ((byte) ind.getGene(i) == solution[i]) {
-					                skill++;
-					            }
-					        }       
-					        ind.setSkill(skill);
-						 }
-						 return null;
+						/** Calculate the skill of individual compared by the optimum solution **/		
+						 int skill = 0;	
+				
+					 	/* Loop through our individuals genes and compare them to the solution */
+				        for (int i = 0; i < ind.getGeneLength() && i < solution.length; i++) {
+				            if ((byte) ind.getGene(i) == solution[i]) {
+				                skill++;
+				            }
+				        }       
+				        ind.setSkill(skill);
+						 
+						return null;
 			});
 			/* Set Evaluation Function */
 			genetic.setEvaluationFunction(evaluationFunction);
