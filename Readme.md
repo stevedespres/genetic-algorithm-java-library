@@ -37,6 +37,7 @@ To run this genetic algorithm, you have to set this parameters :
   - (optionnal) Set parents selection mode
   - (optionnal) Set individual replacement mode
   - (optionnal) Set stop limit mode
+  - (optionnal) Set stop limit parameter (number of iterations or time)
 
 After setting up all of these parameters, you have to init the genetic algorithm then run it.
 When the algorithm is finished, you can get the results. 
