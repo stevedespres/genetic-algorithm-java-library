@@ -2,19 +2,19 @@ package process;
 
 import exceptions.GeneticAlgorithmException;
 import functions.CrossOverFunction;
-import population.Individual;
+import population.IIndividual;
 
 /**
  * Thread to crossover individuals 
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  */
 public class CrossOverThread implements Runnable {
 
-	private CrossOverFunction<Individual[], Individual>  crossoverFunction;
-	private Individual[] parents;
-	private Individual child;
+	private CrossOverFunction<IIndividual[], IIndividual>  crossoverFunction;
+	private IIndividual[] parents;
+	private IIndividual child;
 	
 	/**
 	 * Constructor
@@ -22,7 +22,7 @@ public class CrossOverThread implements Runnable {
 	 * @param p
 	 * @throws GeneticAlgorithmException 
 	 */
-	public CrossOverThread(CrossOverFunction<Individual[], Individual> coFunction, Individual[] p) throws GeneticAlgorithmException{
+	public CrossOverThread(CrossOverFunction<IIndividual[], IIndividual> coFunction, IIndividual[] p) throws GeneticAlgorithmException{
 		crossoverFunction = coFunction;
 		if(p.length == 2) {
 			parents = p;
@@ -41,7 +41,7 @@ public class CrossOverThread implements Runnable {
 	 * @return
 	 * @throws GeneticAlgorithmException 
 	 */
-	public Individual getChild() throws GeneticAlgorithmException {
+	public IIndividual getChild() throws GeneticAlgorithmException {
 		if(child != null) {
 			return child;
 		}else {

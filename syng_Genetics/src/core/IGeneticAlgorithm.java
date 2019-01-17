@@ -7,14 +7,14 @@ import functions.MutationFunction;
 import modes.IndividualReplacementMode;
 import modes.ParentsSelectionMode;
 import modes.StopLimitMode;
-import population.Individual;
-import population.IndividualCreator;
+import population.IIndividual;
+import population.IIndividualCreator;
 import results.Results;
 
 /**
  * Genetic Algorithm Interface
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  */
 public interface IGeneticAlgorithm {
@@ -23,26 +23,26 @@ public interface IGeneticAlgorithm {
 	 * Define Individual Creator
 	 * @param builder
 	 */
-	public void setIndividualCreator(final IndividualCreator creator);
+	public void setIndividualCreator(final IIndividualCreator creator);
 	
 	/**
 	 * Define Evaluation Function
 	 * @param function Evaluation function
 	 */
-	public void setEvaluationFunction(final EvaluationFunction<Individual, Void> function);
+	public void setEvaluationFunction(final EvaluationFunction<IIndividual, Void> function);
 	
 	/**
 	 * Define Mutation function
 	 * @param function Mutation function
 	 * @return 
 	 */
-	public void setMutationFunction(final MutationFunction<Individual, Void> function);
+	public void setMutationFunction(final MutationFunction<IIndividual, Void> function);
 	
 	/**
 	 * Define CrossOver function
 	 * @param function CrossOver function
 	 */
-	public void setCrossOverFunction(final CrossOverFunction<Individual[], Individual> function);
+	public void setCrossOverFunction(final CrossOverFunction<IIndividual[], IIndividual> function);
 	
 	/**
 	 * Define population

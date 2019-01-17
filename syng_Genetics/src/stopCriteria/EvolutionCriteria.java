@@ -2,6 +2,9 @@ package stopCriteria;
 
 import population.Population;
 
+/**
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ */
 public class EvolutionCriteria implements IStopCriteria {
 
 	private Population population;
@@ -22,7 +25,6 @@ public class EvolutionCriteria implements IStopCriteria {
 			// reset iteration
 			this.currentIteration = 0;
 		}
-
 		return false;
 	}
 

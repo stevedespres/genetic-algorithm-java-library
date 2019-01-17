@@ -1,25 +1,25 @@
 package process;
 
 import functions.MutationFunction;
-import population.Individual;
+import population.IIndividual;
 
 /**
  * Thread to mutate individual  
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  */
 public class MutationThread implements Runnable {
 
-	private MutationFunction<Individual, Void>  mutationFunction;
-	private Individual individual;
+	private MutationFunction<IIndividual, Void>  mutationFunction;
+	private IIndividual individual;
 
 	/**
 	 * Constructor
 	 * @param mutFunction
 	 * @param ind
 	 */
-	public MutationThread(MutationFunction<Individual, Void> mutFunction, Individual ind){
+	public MutationThread(MutationFunction<IIndividual, Void> mutFunction, IIndividual ind){
 		mutationFunction = mutFunction;
 		individual = ind;
 	}

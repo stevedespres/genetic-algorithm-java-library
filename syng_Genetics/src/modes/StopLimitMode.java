@@ -3,7 +3,7 @@ package modes;
 /** 
  * Differents Modes to stop genetic algorithm
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  * 
  * Time : time limit in seconds
  * Iteration : stop after n iterations

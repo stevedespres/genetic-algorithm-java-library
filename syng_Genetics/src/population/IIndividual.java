@@ -1,13 +1,13 @@
 package population;
 
 /**
- * Individual Interface 
+ * IIndividual Interface 
  * 
  * Must be implemented by the user to define the individual model
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  */
-public interface Individual {
+public interface IIndividual {
 	
 	/* Get individual genes */
 	public Object getGene();

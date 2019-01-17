@@ -5,7 +5,7 @@ import java.util.function.Function;
 /**
  * Cross Over Function
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  * @param <T>
  * @param <R>

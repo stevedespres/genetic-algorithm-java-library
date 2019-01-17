@@ -1,17 +1,17 @@
 package example;
 
-import population.Individual;
-import population.IndividualCreator;
+import population.IIndividual;
+import population.IIndividualCreator;
 
 /**
  * Concrete Individual Creator
  * Example of implementation of Individual Creator Interface
  * Must be defined by the user
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  */
-public class MyIndividualCreator implements IndividualCreator {
+public class MyIndividualCreator implements IIndividualCreator {
 
 	static final int geneLength = 64;
 	
@@ -19,7 +19,7 @@ public class MyIndividualCreator implements IndividualCreator {
 	 * Create an Individual
 	 */
 	@Override
-	public Individual CreateIndividual() {
+	public IIndividual CreateIndividual() {
 		byte[] genes = new byte[geneLength];
 		for (int i = 0; i < geneLength; i++) {
             byte gene = (byte) Math.round(Math.random());

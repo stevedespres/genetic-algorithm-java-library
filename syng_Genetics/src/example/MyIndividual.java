@@ -1,14 +1,14 @@
 package example;
 
-import population.Individual;
+import population.IIndividual;
 
 /**
  * This class is a use case example for modelize an individual
  * This one should be implemented by the user
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  */
-public class MyIndividual implements Individual{
+public class MyIndividual implements IIndividual{
 
 	/* Parameters */
 	static int geneLength;

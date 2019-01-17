@@ -2,7 +2,7 @@ package exceptions;
 
 /**
  * Genetic Algorithm Exception
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  */
 public class GeneticAlgorithmException extends Exception {

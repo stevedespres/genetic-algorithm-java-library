@@ -1,7 +1,9 @@
 package stopCriteria;
 
 import population.Population;
-
+/**
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ */
 public class BestCriteria implements IStopCriteria{
 
 	@Override

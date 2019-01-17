@@ -1,18 +1,18 @@
 package results;
 
-import population.Individual;
+import population.IIndividual;
 
 /**
  * Results of Genetic Algorithm
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  */
 public class Results {
 
 	private boolean solutionFound;
 	private int nbGenerations = 0;
-	private Individual mostCompetent;
+	private IIndividual mostCompetent;
 	
 	/**
 	 * Constructor
@@ -20,7 +20,7 @@ public class Results {
 	 * @param nbGen Number of generation
 	 * @param bestIndividual Most Competent Individual
 	 */
-	public Results(final boolean solFound,final int nbGen,final Individual bestIndividual){
+	public Results(final boolean solFound,final int nbGen,final IIndividual bestIndividual){
 		solutionFound = solFound;
 		nbGenerations = nbGen;
 		mostCompetent = bestIndividual;
@@ -47,7 +47,7 @@ public class Results {
 	 * Get Most Competent Individual
 	 * @return Most competent Individual
 	 */
-	public Individual getMostCompetent() {
+	public IIndividual getMostCompetent() {
 		return mostCompetent;
 	}
 	

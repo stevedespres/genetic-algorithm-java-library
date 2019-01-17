@@ -5,7 +5,7 @@ import java.util.function.Function;
 /**
  * Evaluation Function
  * 
- * @author Youssef ZIYYAT, Nathan DUBERNARD, Steve DESPRES, Guillaume COURTIN 
+ * @authors Ahmed Youssouf ZIYYAT, Nathan DUBERNARD, Steve DESPRES, Guillaume COURTIN 
  *
  * @param <T>
  * @param <R>

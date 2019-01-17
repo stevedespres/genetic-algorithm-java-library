@@ -9,14 +9,14 @@ import functions.MutationFunction;
 import modes.IndividualReplacementMode;
 import modes.ParentsSelectionMode;
 import modes.StopLimitMode;
-import population.Individual;
-import population.IndividualCreator;
+import population.IIndividual;
+import population.IIndividualCreator;
 import results.Results;
 
 /**
  * Implementation of Genetic Algorithm Interface
  * 
- * @author Youssef ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
+ * @authors Ahmed Youssouf ZIYYAT, Steve DEPRES, Guillaume COURTIN, Nathan DUBERNARD
  *
  */
 
@@ -29,27 +29,26 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	private final static Logger LOGGER = Logger.getLogger(GeneticAlgorithm.class.getName());
 
 	/* Population and Individuals */
-	private IndividualCreator individualCreator;
+	private IIndividualCreator individualCreator;
 	private int populationSize;
 
 	/* Functions */
-	private EvaluationFunction<Individual, Void> evaluationFunction;
-	private MutationFunction<Individual, Void> mutationFunction;
-	private CrossOverFunction<Individual[], Individual> crossoverFunction;
+	private EvaluationFunction<IIndividual, Void> evaluationFunction;
+	private MutationFunction<IIndividual, Void> mutationFunction;
+	private CrossOverFunction<IIndividual[], IIndividual> crossoverFunction;
 		
 	/* Modes */ 
 	private static ParentsSelectionMode parentsSelectionMode = ParentsSelectionMode.RANDOM;
 	private static IndividualReplacementMode individualReplacementMode = IndividualReplacementMode.DEFAULT;
 	private static StopLimitMode stopLimitMode = StopLimitMode.NO;
 	private static int stopLimitParameter = 0;
-	
 	private static boolean init = false;
 	
 	/**
 	 * Set Individuals Builder
 	 */
 	@Override
-	public void setIndividualCreator(final IndividualCreator creator) {
+	public void setIndividualCreator(final IIndividualCreator creator) {
 		this.individualCreator = creator;
 	}
 
@@ -57,7 +56,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Set Evaluation Function
 	 */
 	@Override
-	public void setEvaluationFunction(final EvaluationFunction<Individual, Void> function) {
+	public void setEvaluationFunction(final EvaluationFunction<IIndividual, Void> function) {
 		this.evaluationFunction = function;
 	}
 
@@ -65,7 +64,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Set Mutation Function
 	 */
 	@Override
-	public void setMutationFunction(final MutationFunction<Individual, Void> function) {
+	public void setMutationFunction(final MutationFunction<IIndividual, Void> function) {
 		this.mutationFunction = function;
 	}
 
@@ -73,7 +72,7 @@ public class GeneticAlgorithm implements IGeneticAlgorithm {
 	 * Set CrossOver Function
 	 */
 	@Override
-	public void setCrossOverFunction(final CrossOverFunction<Individual[], Individual> function) {
+	public void setCrossOverFunction(final CrossOverFunction<IIndividual[], IIndividual> function) {
 		this.crossoverFunction = function;
 	}
 
