@@ -24,7 +24,7 @@ EI5 IHMRV
   - Multithreading
 
 # Architecture 
-![alt text](https://lh5.googleusercontent.com/Q9hfSgS176Oke6B3dz3Tf9nhhgOTVEhAF1xQL-PwOgtiJcQx67imZgwrpAXv-hAt3aZejjehuTMfzdPSL8tx=w1920-h910)
+![alt text](https://image.noelshack.com/fichiers/2019/05/2/1548791940-uml-geneticalgorithm.png)
 # Installation
 View an example of implementation in src/example/. 
 To run this genetic algorithm, you have to set this parameters : 
